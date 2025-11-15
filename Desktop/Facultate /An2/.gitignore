@@ -1,0 +1,11 @@
+*.dmg
+*.pkg
+*.app
+*.plugin
+*.jar
+*.dylib
+*.enc
+*.db
+*.so
+*.dll
+*.exe

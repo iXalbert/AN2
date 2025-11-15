@@ -1,0 +1,13 @@
+class Fir extends Thread{
+    public void run(){
+	System.out.println(this.hashCode());
+    }
+
+    public static void main(String args[]){
+	new Fir().start();
+	new Fir().start();
+	new Fir().start();
+	new Fir().start();
+	new Fir().start();
+    }
+}

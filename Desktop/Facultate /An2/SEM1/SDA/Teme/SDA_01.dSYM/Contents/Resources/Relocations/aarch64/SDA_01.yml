@@ -1,0 +1,8 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/albertrosca/Desktop/An2/SDA/Teme/SDA_01'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _putere, symObjAddr: 0x0, symBinAddr: 0x100003E1C, symSize: 0x60 }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _putere, symObjAddr: 0x0, symBinAddr: 0x100003E1C, symSize: 0x60 }
+  - { offsetInCU: 0x93, offset: 0x93, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x60, symBinAddr: 0x100003E7C, symSize: 0xD0 }
+...

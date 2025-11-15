@@ -1,0 +1,15 @@
+public class Sir extends Tip{
+    private String valoare;
+
+    public Sir(String valoare){
+	this.valoare = valoare;
+    }
+
+    public String getTip(){
+	return "Tip : Sir";
+    }
+
+    public String toString(){
+	return valoare;
+    }
+}

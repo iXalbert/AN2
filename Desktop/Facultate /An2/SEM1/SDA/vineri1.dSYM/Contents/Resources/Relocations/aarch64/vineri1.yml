@@ -1,0 +1,9 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/albertrosca/Desktop/SDA/vineri1'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _generare, symObjAddr: 0x0, symBinAddr: 0x100003AEC, symSize: 0xF4 }
+  - { offsetInCU: 0x48, offset: 0x48, size: 0x8, addend: 0x0, symName: _generare, symObjAddr: 0x0, symBinAddr: 0x100003AEC, symSize: 0xF4 }
+  - { offsetInCU: 0xDC, offset: 0xDC, size: 0x8, addend: 0x0, symName: _afisare, symObjAddr: 0xF4, symBinAddr: 0x100003BE0, symSize: 0x114 }
+  - { offsetInCU: 0x11C, offset: 0x11C, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x208, symBinAddr: 0x100003CF4, symSize: 0x148 }
+...

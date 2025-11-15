@@ -1,0 +1,115 @@
+abstract class Whiskey {
+    String name;
+    double alcoholConcentration;
+
+    public Whiskey(String name, double alcoholConcentration) {
+        this.name = name;
+        this.alcoholConcentration = alcoholConcentration;
+    }
+
+    public abstract double getNrCalorii(double milliliters);
+    public abstract double getConcentratieAlcool();
+    public abstract String toString();
+}
+
+class ClassicWhiskey extends Whiskey {
+    public ClassicWhiskey(String name, double alcoholConcentration) {
+        super(name, alcoholConcentration);
+    }
+
+    public double getNrCalorii(double milliliters) {
+        return (alcoholConcentration * milliliters * 5);
+    }
+
+    public double getConcentratieAlcool() {
+        return alcoholConcentration;
+    }
+
+    public String toString() {
+        return String.format("%s, Concentratie alcool: %.2f%%, Calorii per 100 ml: %.2f kcal",
+                name, alcoholConcentration, getNrCalorii(100) / 100);
+    }
+}
+
+class JackAndHoney extends Whiskey {
+    int sweetenerQuantity;
+
+    public JackAndHoney(String name, double alcoholConcentration, int sweetenerQuantity) {
+        super(name, alcoholConcentration);
+        this.sweetenerQuantity = sweetenerQuantity;
+    }
+
+    public double getNrCalorii(double milliliters) {
+        return (alcoholConcentration * milliliters * 5) + (sweetenerQuantity * milliliters * 15);
+    }
+
+    public double getConcentratieAlcool() {
+        return alcoholConcentration;
+    }
+    
+    public String toString() {
+        return String.format("%s, Concentratie alcool: %.2f%%, Calorii per 100 ml: %.2f kcal, Cantitate indulcitor: %d",
+                name, alcoholConcentration, getNrCalorii(100) / 100, sweetenerQuantity);
+    }
+}
+
+class BlendedWhiskey extends Whiskey {
+    Whiskey[] components;
+
+    public BlendedWhiskey(String name, Whiskey... components) {
+        super(name, calculateAverageConcentration(components));
+        this.components = components;
+    }
+
+    private static double calculateAverageConcentration(Whiskey[] components) {
+        double totalConcentration = 0;
+        for (Whiskey whiskey : components) {
+            totalConcentration += whiskey.getConcentratieAlcool();
+        }
+        return totalConcentration / components.length;
+    }
+
+    public double getNrCalorii(double milliliters) {
+        double totalCalories = 0;
+        for (Whiskey whiskey : components) {
+            totalCalories += whiskey.getNrCalorii(milliliters / components.length);
+        }
+        return totalCalories;
+    }
+
+    public double getConcentratieAlcool() {
+        return alcoholConcentration;
+    }
+
+    public String toString() {
+        StringBuilder composition = new StringBuilder();
+        for (int i = 0; i < components.length; i++) {
+            composition.append(components[i].toString());
+            if (i != components.length - 1) composition.append(", ");
+        }
+        return String.format("%s, Concentratie alcool: %.2f%%, Calorii per 100 ml: %.2f kcal, Compozitie: %s",
+                name, alcoholConcentration, getNrCalorii(100) / 100, composition);
+    }
+}
+
+public class WhiskeyMain {
+    public static void main(String[] args) {
+        ClassicWhiskey classic = new ClassicWhiskey("Classic Whiskey", 40.0);
+        JackAndHoney jackAndHoney = new JackAndHoney("Jack and Honey", 35.0, 2);
+        BlendedWhiskey blended = new BlendedWhiskey("Blended Whiskey", classic, jackAndHoney);
+
+        double milliliters = 150;
+
+        System.out.println("=== Classic Whiskey ===");
+        System.out.println(classic);
+        System.out.printf("Calorii pentru %.0f ml: %.2f kcal\n\n", milliliters, classic.getNrCalorii(milliliters));
+
+        System.out.println("=== Jack and Honey ===");
+        System.out.println(jackAndHoney);
+        System.out.printf("Calorii pentru %.0f ml: %.2f kcal\n\n", milliliters, jackAndHoney.getNrCalorii(milliliters));
+
+        System.out.println("=== Blended Whiskey ===");
+        System.out.println(blended);
+        System.out.printf("Calorii pentru %.0f ml: %.2f kcal\n", milliliters, blended.getNrCalorii(milliliters));
+    }
+}

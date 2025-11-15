@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_TITLE 100
+#define MAX_CATEGORY 50
+#define MAX_MOVIES 100
+
+typedef struct {
+    int year;
+    int duration;
+    char title[MAX_TITLE];
+    char category[MAX_CATEGORY];
+    int has_awards;  // 1 = Da, 0 = Nu
+} Movie;
+
+int read_movies(const char* filename, Movie movies[], int* n) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        printf("Eroare la deschiderea fișierului!\n");
+        return 0;
+    }
+
+    *n = 0;
+    while (fscanf(file, "%d\t%d\t%[^\t]\t%[^\t]\t%[^\n]\n", 
+                  &movies[*n].year, 
+                  &movies[*n].duration, 
+                  movies[*n].title, 
+                  movies[*n].category, 
+                  (char[4]){0}) == 5) {
+        if (strstr((char[4]){0}, "Da")) {
+            movies[*n].has_awards = 1;
+        } else {
+            movies[*n].has_awards = 0;
+        }
+        (*n)++;
+    }
+
+    fclose(file);
+    return 1;
+}
+
+void print_movies(Movie movies[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d\t%d\t%s\t%s\t%s\n", 
+               movies[i].year, 
+               movies[i].duration, 
+               movies[i].title, 
+               movies[i].category, 
+               movies[i].has_awards ? "Da" : "Nu");
+    }
+}
+
+// S2: Sortare alfabetică după titlu (sortare simplă)
+void sort_by_title(Movie movies[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (strcmp(movies[i].title, movies[j].title) > 0) {
+                Movie temp = movies[i];
+                movies[i] = movies[j];
+                movies[j] = temp;
+            }
+        }
+    }
+}
+
+// S2': Ordine premiate/nepremiate (o singură parcurgere)
+void partition_awards(Movie movies[], int n) {
+    int i = 0, j = n - 1;
+    while (i < j) {
+        while (i < n && movies[i].has_awards) i++;
+        while (j >= 0 && !movies[j].has_awards) j--;
+        if (i < j) {
+            Movie temp = movies[i];
+            movies[i] = movies[j];
+            movies[j] = temp;
+        }
+    }
+}
+
+// S3: Sortare crescătoare după an (quicksort)
+void swap(Movie* a, Movie* b) {
+    Movie temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int partition(Movie movies[], int low, int high) {
+    int pivot = movies[high].year;
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (movies[j].year < pivot) {
+            i++;
+            swap(&movies[i], &movies[j]);
+        }
+    }
+    swap(&movies[i + 1], &movies[high]);
+    return i + 1;
+}
+
+void quicksort(Movie movies[], int low, int high) {
+    if (low < high) {
+        int pi = partition(movies, low, high);
+        quicksort(movies, low, pi - 1);
+        quicksort(movies, pi + 1, high);
+    }
+}
+
+int main() {
+    Movie movies[MAX_MOVIES];
+    int n;
+
+    if (!read_movies("Filme.txt", movies, &n)) {
+        return 1;
+    }
+
+    printf("Filmele citite din fisier:\n");
+    print_movies(movies, n);
+
+    // S2: Sortare alfabetică după titlu
+    sort_by_title(movies, n);
+    printf("\nFilmele sortate alfabetic după titlu:\n");
+    print_movies(movies, n);
+
+    // S2': Filme premiate pe primele poziții
+    partition_awards(movies, n);
+    printf("\nFilmele cu premii pe primele poziții:\n");
+    print_movies(movies, n);
+
+    // S3: Sortare după an (quicksort)
+    quicksort(movies, 0, n - 1);
+    printf("\nFilmele sortate crescător după anul apariției:\n");
+    print_movies(movies, n);
+
+    return 0;
+}

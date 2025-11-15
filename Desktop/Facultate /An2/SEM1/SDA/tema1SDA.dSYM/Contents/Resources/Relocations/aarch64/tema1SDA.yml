@@ -1,0 +1,12 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/albertrosca/Desktop/SDA/tema1SDA'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _exista, symObjAddr: 0x0, symBinAddr: 0x10000369C, symSize: 0x88 }
+  - { offsetInCU: 0x48, offset: 0x48, size: 0x8, addend: 0x0, symName: _exista, symObjAddr: 0x0, symBinAddr: 0x10000369C, symSize: 0x88 }
+  - { offsetInCU: 0x9A, offset: 0x9A, size: 0x8, addend: 0x0, symName: _generare, symObjAddr: 0x88, symBinAddr: 0x100003724, symSize: 0x134 }
+  - { offsetInCU: 0x12E, offset: 0x12E, size: 0x8, addend: 0x0, symName: _afisare, symObjAddr: 0x1BC, symBinAddr: 0x100003858, symSize: 0x114 }
+  - { offsetInCU: 0x16E, offset: 0x16E, size: 0x8, addend: 0x0, symName: _intersectie, symObjAddr: 0x2D0, symBinAddr: 0x10000396C, symSize: 0x190 }
+  - { offsetInCU: 0x1F9, offset: 0x1F9, size: 0x8, addend: 0x0, symName: _bignum, symObjAddr: 0x460, symBinAddr: 0x100003AFC, symSize: 0x15C }
+  - { offsetInCU: 0x271, offset: 0x271, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x5BC, symBinAddr: 0x100003C58, symSize: 0x18C }
+...

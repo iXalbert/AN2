@@ -1,0 +1,93 @@
+public class Telefon {
+    private String proprietar;
+    private String[] apeluriPrimite;
+    private int contorApeluri;
+
+    public Telefon(String proprietar) {
+        this.proprietar = proprietar;
+        this.apeluriPrimite = new String[100];
+        this.contorApeluri = 0;
+    }
+
+    public boolean apeleaza(Telefon telefonApelat) {
+        if (telefonApelat.contorApeluri < 100) {
+            telefonApelat.apeluriPrimite[telefonApelat.contorApeluri] = this.proprietar;
+            telefonApelat.contorApeluri++;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Integer numarDeApeluri(String nume) {
+        int count = 0;
+        for (int i = 0; i < contorApeluri; i++) {
+            if (apeluriPrimite[i].equals(nume)) {
+                count++;
+            }
+        }
+        return count > 0 ? count : null;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Telefonul proprietarului " + proprietar + " a fost apelat de: ");
+        for (int i = 0; i < contorApeluri; i++) {
+            sb.append(apeluriPrimite[i]);
+            if (i < contorApeluri - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws java.io.IOException {
+        java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+
+        // Citirea numărului de telefoane de creat
+        System.out.print("Introduceți numărul de telefoane de creat: ");
+        int numarTelefoane = Integer.parseInt(reader.readLine());
+        Telefon[] telefoane = new Telefon[numarTelefoane];
+
+        // Citirea numelor proprietarilor
+        for (int i = 0; i < numarTelefoane; i++) {
+            System.out.print("Introduceți numele proprietarului pentru telefonul " + (i + 1) + ": ");
+            String numeProprietar = reader.readLine();
+            telefoane[i] = new Telefon(numeProprietar);
+        }
+
+        // Citirea numărului de apeluri de efectuat
+        System.out.print("Introduceți numărul de apeluri de efectuat: ");
+        int numarApeluri = Integer.parseInt(reader.readLine());
+
+        // Generarea aleatorie a apelurilor
+        for (int i = 0; i < numarApeluri; i++) {
+            int x = genereazaNumarAleator(numarTelefoane);
+            int y = genereazaNumarAleator(numarTelefoane);
+
+            if (x != y) { // Evităm ca un telefon să se apeleze pe el însuși
+                boolean succes = telefoane[x].apeleaza(telefoane[y]);
+                if (!succes) {
+                    System.out.println("Telefonul " + telefoane[y].proprietar + " nu mai poate primi apeluri.");
+                }
+            }
+        }
+
+        // Citirea numelui unui proprietar pentru a afișa statistica apelurilor
+        System.out.print("Introduceți numele proprietarului pentru verificare apeluri: ");
+        String numeCautat = reader.readLine();
+
+        // Afișarea informațiilor pentru fiecare telefon
+        for (Telefon telefon : telefoane) {
+            System.out.println(telefon.toString());
+            Integer apeluri = telefon.numarDeApeluri(numeCautat);
+            System.out.println("Numărul de apeluri efectuate de " + numeCautat + " către acest telefon: " + (apeluri != null ? apeluri : 0));
+        }
+    }
+
+    private static int genereazaNumarAleator(int limitaSuperioara) {
+        return (int)(Math.random() * limitaSuperioara);
+    }
+}

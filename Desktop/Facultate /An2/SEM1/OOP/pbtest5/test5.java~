@@ -1,0 +1,132 @@
+public clasa Tip{
+    public abstract String getTip();
+
+    public abstract String toString();
+}
+
+public class Intreg extends Tip{
+    private int valoare;
+
+    public Intreg(int valoare){
+	this.valoare = valoare;
+    }
+
+    public String getTip(){
+	return "Tip : Intreg";
+    }
+
+    public String toString(){
+	return String.valueOf(valoare);
+    }
+}
+
+public class Sir extends Tip{
+    private String valoare;
+
+    public Sir(String valoare){
+	this.valoare = valoare;
+    }
+
+    public String getTip(){
+	return "Tip : Sir";
+    }
+
+    public String toString(){
+	return valoare;
+    }
+}
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class Colectie extends Tip{
+    private List<Tip> elemente;
+
+    public Colectie(){
+	this.elemente = new ArrayList<> ();
+
+    }
+
+    public void adaugaElement(Tip element){
+	elemente.add(element);
+    }
+
+    public String getTip(){
+	return "Tip : Colectie";
+    }
+
+    public String toString(){
+	StringBuilder rezultat = new StringBuilder("(");
+	Iterator<Tip> iterator = elemente.iterator();
+
+	while(iterator.hasNext()){
+	    Tip element = iterator.next();
+	    rezultat.append(elemente.toString());
+	    if(iterator.hasNext()){
+		rezultat.append(",");
+	    }
+	}
+
+	rezultat.append(")");
+	return rezultat.toString();
+    }
+
+    public boolean esteEgalCu(Colectie altaColectie){
+	if(this.elemente.size() != altaColectie.elemente.size()){
+	    return false;
+	}
+
+	Iterator<Tip> iterator1 = this.elemente.iterator();
+	Iterator<Tip> iterator2 = altaColectie.elemente.zise();
+
+	while(iterator1.hasNext() && iterator2.hasNext()){
+	    Tip element1 = iteartor1.hasNext();
+	    Tip element2 = iterator2.hasNext();
+
+	    if(!elemente1.toString().equals(element2.toString())){
+		return false;
+	    }
+	}
+
+	return true;
+	
+    }
+    
+}
+
+public class Main {
+    public static void main(String[] args) {
+	
+        Intreg numar1 = new Intreg(7);
+        Intreg numar2 = new Intreg(4);
+        Sir text = new Sir("Eu");
+
+	
+        Colectie subColectie = new Colectie();
+        subColectie.adaugaElement(new Intreg(2));
+        subColectie.adaugaElement(new Intreg(8));
+
+	
+        Colectie colectiePrincipala = new Colectie();
+        colectiePrincipala.adaugaElement(numar1);
+        colectiePrincipala.adaugaElement(numar2);
+        colectiePrincipala.adaugaElement(text);
+        colectiePrincipala.adaugaElement(new Intreg(12));
+        colectiePrincipala.adaugaElement(subColectie);
+
+	System.out.println(colectiePrincipala);
+
+	
+        Colectie altaColectie = new Colectie();
+        altaColectie.adaugaElement(new Intreg(7));
+        altaColectie.adaugaElement(new Intreg(4));
+        altaColectie.adaugaElement(new Sir("Eu"));
+        altaColectie.adaugaElement(new Intreg(12));
+        altaColectie.adaugaElement(subColectie);
+
+        System.out.println("Colectiile sunt egale? " + colectiePrincipala.esteEgalCu(altaColectie));
+    }
+}
+
+

@@ -1,0 +1,40 @@
+interface UnitateLupta{
+    public boolean esteVie();
+    public void loveste(UnitateLupta u);
+    public void ranire(int d);
+}
+
+abstract class UnitateLuptaSimpla implements UnitateLupta{
+    private int viata,putere;
+    public UnitateLuptaSimpla(int d,int p){
+	viata = d;
+	putere = p;
+    }
+
+    public boolean esteVie(){
+	return viata > 0;
+    }
+
+    public void ranire(int d){
+	if(this.esteVie()){
+	    viata = viata-d;
+	    if(!this.esteVie()){
+		tocmaiUrmeazaSaMor();
+	    }
+	}
+    }
+
+    public void lovesete(UnitateLupta u){
+	if(this.esteVie()){
+	    u.ranire(putere);
+	}
+	else{
+	    u.ranire(0);
+	}
+    }
+
+    protected void tocmaiUrmeazaSaMor(){
+	
+    }
+    
+}

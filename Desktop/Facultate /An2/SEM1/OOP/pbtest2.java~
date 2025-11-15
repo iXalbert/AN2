@@ -1,0 +1,137 @@
+import java.util.ArrayList;
+
+interface Executable{
+    boolean execute(double seconds);
+}
+
+class SimpleTask implements Executable{
+    private String nume;
+    private double timeRemaining;
+
+    public SimpleTask(String nume, double timeRemaining){
+	this.nume = nume;
+	this.timeRemaining = timeRemaining;
+    }
+
+    public boolean execute(double seconds){
+	if(timeRemaining > 0 ){
+	    timeRemaining = timeRemaining - seconds;
+
+	    if(timeRemainig <= 0){
+		timeRemaining = 0;
+		return true;
+	    }
+	}
+
+	return false;
+
+    }
+
+    public String toString(){
+	return nume + ": Time Remaining: " + timeRemaining;
+    }
+}
+
+class ComposedTask implements Executable{
+    private String nume;
+    private ArrayList<SimpleTask> simpleTasks;
+
+    public ComposedTask(String nume){
+	this.nume = nume;
+	this.simpleTasks = new ArrayList<>():
+    }
+
+    public void addTask(SimpleTask task){
+	simpleTasks.add(task);
+    }
+
+    public boolean execute(double seconds){
+	boolean allTaskFinished = true;
+
+	for(SimpleTask task : simpleTasks){
+	    if(!task.execute(seconds)){
+		allTaskFinished = false;
+	    }
+	}
+
+	return allTaskFinished;
+    }
+
+    public String toString(){
+	StringBuilder result = new StringBuilder(nume + " - composed task, Content: ");
+
+	for(SimpleTask task : simpleTasks){
+	    result.append(task.toString());
+	    result.append(", ");
+	}
+
+	return result.toString();
+    }
+}
+
+class Procesor{
+    private ArrayList<Executable> tasks;
+
+    public Procesor(){
+	this.tasks = new ArrayList<>();
+    }
+
+    public void addTask(Executable task){
+	tasks.add(task);
+    }
+
+    public void finishAllTasks(double seconds){
+	System.out.println("Starting tasks execution ");
+
+	for (Executable task : tasks){
+	    while(!task.execute(seconds)){
+		System.out.println(task);
+	    }
+		System.out.println("Task completed : " + task);
+	}
+
+	System.out.println("All tasks all completed");
+    }
+
+    public String toString(){
+	StringBuilder result = new StringBuilder("Procesor : ");
+
+	for(Executable task : tasks){
+	    result.append(task.toString());
+	    result.append("\n");
+	}
+
+	return result.toString();
+    }
+}
+
+public class pbtest2{
+    public static void main(String[] args){
+	Procesor procesor = new Procesor();
+
+	SimpleTask s1 = new simpleTask("SimpleTask1", 5);
+	SimpleTask s2 = new simpleTask("SimpleTask2", 3);
+	SimpleTask s3 = new simpleTask("SimpleTask3", 4);
+
+	ComposedTask c1 = new composedTask("ComposedTask1");
+
+	composedTask.addTask(s1);
+	composedTask.addTask(s2);
+
+	ComposedTask c2 = new composedTask("ComposedTask2");
+
+	composedTask.addTask(s2);
+	composedTask.addTask(s3);
+
+	procesor.adauga(c1);
+	procesor.adauga(c2);
+	procesor.adauga(s3);
+
+	System.out.println(procesor);
+
+	procesor.finishAllTasks(2);
+
+	System.oout.println("Dupa executie : ");
+	System.out.println(procesor);
+    }
+}

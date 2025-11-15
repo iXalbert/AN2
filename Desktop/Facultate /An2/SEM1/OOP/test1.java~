@@ -1,0 +1,49 @@
+class Complex {
+    private double re;
+    private double im;
+    private static int displayCount = 0;
+
+    public Complex(double re, double im) {
+        this.re = re;
+        this.im = im;
+    }
+
+    public double modulus() {
+        return Math.sqrt(re * re + im * im);
+    }
+
+    public void display() {
+        System.out.println(re + " + i * " + im);
+        displayCount++;
+    }
+
+    public Complex add(Complex other) {
+        return new Complex(this.re + other.re, this.im + other.im);
+    }
+
+    public static int getDisplayCount() {
+        return displayCount;
+    }
+}
+
+public class ClientComplex {
+    public static void main(String[] args) {
+        // Creăm două obiecte de tip Complex
+        Complex c1 = new Complex(3, 4);
+        Complex c2 = new Complex(1, 2);
+
+        System.out.print("Numărul complex c1: ");
+        c1.display();
+        System.out.println("Modulul lui c1: " + c1.modulus());
+
+        System.out.print("Numărul complex c2: ");
+        c2.display();
+        System.out.println("Modulul lui c2: " + c2.modulus());
+
+        Complex sum = c1.add(c2);
+        System.out.print("Suma lui c1 și c2: ");
+        sum.display();
+
+        System.out.println("Numere complexe afișate de " + Complex.getDisplayCount() + " ori.");
+    }
+}

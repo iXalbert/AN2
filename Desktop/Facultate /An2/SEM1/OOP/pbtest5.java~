@@ -1,0 +1,132 @@
+import java.util.ArrayList;
+
+// Base abstract class for vehicles
+abstract class Vehicul {
+    String numarInmatriculare;
+    double greutateAutovehicul;
+
+    public Vehicul(String numarInmatriculare, double greutateAutovehicul) {
+        this.numarInmatriculare = numarInmatriculare;
+        this.greutateAutovehicul = greutateAutovehicul;
+    }
+
+    public abstract double calculeazaGreutateTotala();
+    public abstract String toString();
+}
+
+// Autoturism Class
+class Autoturism extends Vehicul {
+    double greutatePasageri;
+
+    public Autoturism(String numarInmatriculare, double greutateAutovehicul, double greutatePasageri) {
+        super(numarInmatriculare, greutateAutovehicul);
+        this.greutatePasageri = greutatePasageri;
+    }
+
+    @Override
+    public double calculeazaGreutateTotala() {
+        return greutateAutovehicul + greutatePasageri;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Numar inmatriculare: %s, Greutate autovehicul: %.2f tone, Greutate pasageri: %.2f tone",
+                numarInmatriculare, greutateAutovehicul, greutatePasageri);
+    }
+}
+
+// Camion Class
+class Camion extends Vehicul {
+    ArrayList<Autoturism> autoturisme;
+
+    public Camion(String numarInmatriculare, double greutateAutovehicul) {
+        super(numarInmatriculare, greutateAutovehicul);
+        autoturisme = new ArrayList<>();
+    }
+
+    public void adaugaAutoturism(Autoturism autoturism) {
+        autoturisme.add(autoturism);
+    }
+
+    @Override
+    public double calculeazaGreutateTotala() {
+        double greutateTotala = greutateAutovehicul;
+        for (Autoturism autoturism : autoturisme) {
+            greutateTotala += autoturism.calculeazaGreutateTotala();
+        }
+        return greutateTotala;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder info = new StringBuilder();
+        info.append(String.format("Numar inmatriculare: %s, Greutate camion: %.2f tone, Autoturisme transportate:\n",
+                numarInmatriculare, greutateAutovehicul));
+        for (int i = 0; i < autoturisme.size(); i++) {
+            info.append("  ").append(i + 1).append(". ").append(autoturisme.get(i).toString()).append("\n");
+        }
+        return info.toString();
+    }
+}
+
+// TransportPeApa Class
+class TransportPeApa {
+    double greutateMaximaAutorizata;
+    ArrayList<Vehicul> vehicule;
+
+    public TransportPeApa(double greutateMaximaAutorizata) {
+        this.greutateMaximaAutorizata = greutateMaximaAutorizata;
+        vehicule = new ArrayList<>();
+    }
+
+    public boolean adaugaVehicul(Vehicul vehicul) {
+        double greutateTotala = vehicul.calculeazaGreutateTotala();
+        if (greutateTotala <= greutateMaximaAutorizata) {
+            vehicule.add(vehicul);
+            return true;
+        } else {
+            System.out.println("Vehiculul nu poate fi adaugat. Depaseste greutatea maxima autorizata.");
+            return false;
+        }
+    }
+
+    public String toString() {
+        StringBuilder info = new StringBuilder("Vehicule in sistemul de transport pe apa:\n");
+        for (Vehicul vehicul : vehicule) {
+            info.append(vehicul.toString()).append("\n");
+        }
+        return info.toString();
+    }
+}
+
+// Main Class
+public class TransportSystemMain {
+    public static void main(String[] args) {
+        // Crearea Autoturismelor
+        Autoturism autoturism1 = new Autoturism("MS01ABC", 4.0, 0.3);
+        Autoturism autoturism2 = new Autoturism("MS02DEF", 3.5, 0.2);
+        Autoturism autoturism3 = new Autoturism("MS03GHI", 3.0, 0.1);
+
+        // Crearea unui Camion si adaugarea autoturismelor
+        Camion camion = new Camion("MSC20CAM", 10.0);
+        camion.adaugaAutoturism(autoturism1);
+        camion.adaugaAutoturism(autoturism2);
+        camion.adaugaAutoturism(autoturism3);
+
+        // Crearea sistemului de transport pe apa si adaugarea vehiculelor
+        TransportPeApa transport = new TransportPeApa(20.0);
+        transport.adaugaVehicul(camion);
+
+        // Afisarea rezultatelor
+        System.out.println("=== Autoturism 1 ===");
+        System.out.println(autoturism1);
+        System.out.printf("Greutate Totala: %.2f tone\n\n", autoturism1.calculeazaGreutateTotala());
+
+        System.out.println("=== Camion ===");
+        System.out.println(camion);
+        System.out.printf("Greutate Totala: %.2f tone\n\n", camion.calculeazaGreutateTotala());
+
+        System.out.println("=== Sistem Transport Pe Apa ===");
+        System.out.println(transport);
+    }
+}

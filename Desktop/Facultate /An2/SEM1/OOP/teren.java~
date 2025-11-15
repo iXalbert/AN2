@@ -1,0 +1,106 @@
+
+
+class Minge{
+    private int x;
+    private int y;
+
+    public Minge(int x, int y){
+	this.x = x;
+	this.y = y;
+    }
+
+    public int getX(){
+	return x;
+    }
+
+    public int getY(){
+	return y;
+    }
+
+    public public void suteaza() throws Out,Gol,Corner{
+
+	if(y==0 || y==50){
+	    throw new Out("MIngea a iesit din teren la coordonatele ( " + x + " , " + y + ")");
+	}
+
+	if((x==0 || x=100)&&(y>=0 || y<=30)){
+	    throw new Gol("MIngea a intrat4 in poarta la coordonatele ( " + x + " , " + y + ")");
+	}
+
+	if((x==0 || x==100)&&((y>0 && y<20)||(y>30 && y<50)){
+	    throw new Corner("MIngea a iesit in corner la coordonatele ( " + x + " , " + y + ")");
+	}
+    }
+}
+
+    class Joc{
+	private String team1,team2;
+	private int golTeam1,golTeam2,nrOut,nrCornenr;
+
+	public Joc(String team1,String team2){
+	    this.team1 = team1;
+	    this.team2 = team2;
+	    golTeam1 = 0;
+	    golTeam2 = 0;
+	    nrOut = 0;
+	    nrCorner = 0;
+	}
+
+	public void simuleaza(){
+	    Minge minge = new Minge(50,25);
+
+	    for(int i=0;i<1000;i++){
+		try{
+		    System.out.printl(team1 + " - " + team2 + " : Mingeat se afla la coordonatele ( " + minge.getX() + " , " + minge.getY() + ") ");
+		    minge.suteaza();
+		} catch (Out e){
+		    nrOut++;
+		    System.out.println(e.gettMessage());
+		} catch (Gol e){
+		    if(minge.getX() == 0){
+			golTeam2++;
+		    } else {
+			golTeam1++;
+		    }
+		    System.out.println(e.getMessage());
+		    minge = new Minge(50,25);
+		} catch (Corner e){
+		    nrCorner++;
+		    System.out.println(e.getMessage());
+		    if(minge.getX() == 0){
+			if(minge.getY() > 25){
+			    minge = new Minge(0,50);
+			} else {
+			    minge = new Minge(0,0);
+			}
+		    } else {
+			if(minge.getY() > 25){
+			    minge = new Minge(100,50);
+			} else {
+			    minge = new Minge(100,0);
+			}
+		    }
+		}
+	    }
+	}
+
+	public String toString(){
+	    return "Scor final : " + team1 + " " + golTeam1 + " - " + golTeam2 + " " + team2 + " \n Outuri : nrOut: " + nrOut + ", Cornere : " + nrCornere;
+	    
+	}
+    }
+
+    public class teren{
+	public static void main(String[] args){
+	    Joc joc1 = new Joc("Echipa 1", "Echipa 2");
+	    Joc joc2 = new Joc("Echipa 3", "Echipa 4");
+
+	    System.out.println("Simulare primul meci");
+	    joc1.simuleaza();
+	    System.out.println(joc1);
+
+	    System.out.println("Simulare al doilea meci");
+	    joc2.simuleaza();
+	    System.out.println(joc2);
+	}
+    }

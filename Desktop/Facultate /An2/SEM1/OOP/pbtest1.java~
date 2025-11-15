@@ -1,0 +1,119 @@
+import java.util.ArrayList;
+
+interface VenitCalculator{
+    double calculeazaVenit(int minutes);
+}
+
+class Subscriber implements VenitCalculator{
+    private String name;
+    private int level;
+
+    public Subscriber(String nume, int level){
+	this.nume = nume;
+	this.level = level;
+    }
+    
+    public double calculeazaVenit(int minutes){
+	return 1.5 * this.nivel * minutes;
+    }
+
+    public String toString(){
+	return name + " - subscriber - " + level; 
+    }
+}
+
+class Creator implements VenitCalculator{
+    private String name;
+    private ArrayList<Subscriber> subscribers;
+
+    public Creator(String nume){
+	this.name = name;
+	this.subscribers = new ArrayList<>;
+    }
+
+    public void adaugaSubscribe(Subscriber subscriber){
+	subscribers.add(subscriber);
+    }
+
+    public double calculeazaVenit(int minutes){
+	double totalVenit = 0;
+	for(Subscriber sub : subscribers){
+	    totalVenit = totalVenit + sub.calculeazaVenit(minutes);
+	}
+
+	return totalVenit;
+    }
+
+    public String toString() {
+        StringBuilder result = new StringBuilder(name + " - creator - ");
+        for (Subscriber sub : subscribers) {
+            result.append(sub.toString()).append(", ");
+        }
+        return result.toString();
+    }
+}
+
+class Platforma{
+    private VenitCalculator[] utilizatori;
+    private int count;
+    private static int MAX_UTILIZATORI = 1000;
+
+    public Platforma(){
+	utilizatori = new VenitCalculator[MAX_UTILIZATORI];
+	count = 0;
+    }
+
+    public boolean adaugaUtilizator(VenitCalculator utilizator){
+	if(count < MAX_UTILIZATOR){
+	    utilizatori[count++] = utilizator;
+	    return true;
+	}
+	return false;
+    }
+    
+    public VenitCalculator determinaVIP(int minutes){
+	VenitCalculator vip = 0;
+	double maxVenit = 0;
+
+	for(int i=0;i<count;i++){
+	    double venit = utilizatori[i].calculeazaVenit(minutes);
+	    if(venit > maxVenit){
+		maxVenit = venit;
+		vip = utilizatori[i]
+	    }
+	}
+
+	return vip;
+	
+    }
+
+}
+
+public class pbtest1{
+    public static void testpb1(String[] args){
+	Platforma platforma = new Platforma();
+
+	Subscriber s1 = new Subscriber("John", 2);
+	Subscriber s2 = new Subscriber("Jane", 3);
+	Subscriber s3 = new Subscriber("Alex", 1);
+
+	Creator c1 = new Creator("Creator 1");
+
+	c1.adaugasubscriber(s1);
+	c1.adaugasubscriber(s2);
+	c1.adaugasubscriber(s3);
+
+	Creator c2 = new Creator("Creator 2");
+        
+	c2.adaugasubscriber(s2);
+	c2.adaugasubscriber(s3);
+	
+	platforma.adaugaUtilizator(c1);
+	platforma.adaugaUtilizator(c2);
+	platforma.adaugaUtilizator(s1);
+
+	VenitCalculator vip = platforma.determinaVIP(30);
+
+	System.out.println("Utilizatorul VIP este : " + vip);
+    }
+}
