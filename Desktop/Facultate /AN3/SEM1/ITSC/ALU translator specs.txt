@@ -1,0 +1,45 @@
+input:
+	wire [5:0] opcode // general arch. opcode
+output:
+	wire [3:0] opcode_ALU // opcode to be used in ALU
+	// following name may be changed for a more suggestive, perhaps shorter one
+	// this change needs to be announced
+	wire result_to_be_loaded // wether the result of the ALU operation needs to be stored
+	// check operations list
+	
+Functional requirements:
+	The translator shall convert the input opcode to the output opcode_ALU as follows:
+		opcode_ALU[3]:
+			0 - arithmetical operations: ADD, SUB, MUL, DIV, MOD
+			1 - bitwise operations: LSR, LSL, RSR, RSL, AND, OR, XOR, NOT
+		opcode_ALU[2]:
+			if opcode_ALU[3] == 0:
+				0 - ADD, SUB, MUL, DIV
+				1 - MOD
+				opcode_ALU[1:0]:
+					00 - ADD
+					01 - SUB
+					10 - MUL
+					11 - DIV, MOD
+			if opcode_ALU[3] == 1:
+				0 - AND, OR, XOR, NOT
+				1 - LSR, LSL, RSR, RSL
+				opcode_ALU[1:0]:
+					any coherent, suggestive, efficient and clearly defined combination will do
+					<suggestion>:
+						1000 - OR
+						1001 - AND
+						1010 - XOR
+						1011 - NOT
+						1100 - LSR
+						1101 - LSL
+						1110 - RSR
+						1111 - RSL
+						
+Non-Functional requirements:
+	The module shall be implemented in Verilog in a structural manner, avoiding behavioural code
+	The module shall also come with a test module
+	The test module shall cover all functionalities of the main module
+
+	The output codes shall be coherent, suggestive, efficient and clearly defined
+	A list of all combinations and their respective operations shall be provided along with the module
