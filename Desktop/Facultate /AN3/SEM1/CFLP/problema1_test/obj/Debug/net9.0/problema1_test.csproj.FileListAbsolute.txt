@@ -1,0 +1,15 @@
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/problema1_test.GeneratedMSBuildEditorConfig.editorconfig
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/problema1_test.AssemblyInfoInputs.cache
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/problema1_test.AssemblyInfo.cs
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/problema1_test.csproj.CoreCompileInputs.cache
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/problema1_test.sourcelink.json
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/bin/Debug/net9.0/problema1_test
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/bin/Debug/net9.0/problema1_test.deps.json
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/bin/Debug/net9.0/problema1_test.runtimeconfig.json
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/bin/Debug/net9.0/problema1_test.dll
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/bin/Debug/net9.0/problema1_test.pdb
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/problema1_test.dll
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/refint/problema1_test.dll
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/problema1_test.pdb
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/problema1_test.genruntimeconfig.cache
+/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/problema1_test/obj/Debug/net9.0/ref/problema1_test.dll
