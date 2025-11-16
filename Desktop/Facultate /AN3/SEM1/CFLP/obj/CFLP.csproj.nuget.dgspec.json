@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/albertrosca/Desktop/AN3/SEM1/CFLP/CFLP.csproj": {}
+    "/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/CFLP.csproj": {}
   },
   "projects": {
-    "/Users/albertrosca/Desktop/AN3/SEM1/CFLP/CFLP.csproj": {
+    "/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/CFLP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/albertrosca/Desktop/AN3/SEM1/CFLP/CFLP.csproj",
+        "projectUniqueName": "/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/CFLP.csproj",
         "projectName": "CFLP",
-        "projectPath": "/Users/albertrosca/Desktop/AN3/SEM1/CFLP/CFLP.csproj",
+        "projectPath": "/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/CFLP.csproj",
         "packagesPath": "/Users/albertrosca/.nuget/packages/",
-        "outputPath": "/Users/albertrosca/Desktop/AN3/SEM1/CFLP/obj/",
+        "outputPath": "/Users/albertrosca/Desktop/Facultate /AN3/SEM1/CFLP/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/albertrosca/.nuget/NuGet/NuGet.Config"
